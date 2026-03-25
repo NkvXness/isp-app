@@ -1,9 +1,9 @@
+using IspApp.Extensions;
 using IspApp.Models;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
 
-// подключение EF Core с SQL Server через строку из appsettings.json
 var connectionString = builder.Configuration.GetConnectionString("DefaultConnection");
 builder.Services.AddDbContext<IspContext>(options =>
     options.UseSqlServer(connectionString));
@@ -23,6 +23,9 @@ app.UseStaticFiles();
 
 app.UseRouting();
 app.UseAuthorization();
+
+// инициализируем БД тестовыми данными при первом запуске
+app.UseDbInitializer();
 
 app.MapControllerRoute(
     name: "default",
