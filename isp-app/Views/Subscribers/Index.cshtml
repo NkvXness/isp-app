@@ -1,0 +1,31 @@
+﻿@model IEnumerable<IspApp.Models.Subscriber>
+
+@{
+    ViewData["Title"] = "Абоненты";
+}
+
+<h2>Абоненты</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>ФИО</th>
+            <th>Лицевой счёт</th>
+            <th>Адрес</th>
+            <th>Тариф</th>
+            <th>Баланс, руб.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var s in Model)
+        {
+            <tr class="@(s.Balance < 0 ? "table-danger" : "")">
+                <td>@s.FullName</td>
+                <td>@s.AccountNumber</td>
+                <td>@s.Address</td>
+                <td>@s.Tariff?.Name</td>
+                <td>@s.Balance.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
