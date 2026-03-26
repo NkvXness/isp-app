@@ -1,0 +1,29 @@
+﻿@model IEnumerable<IspApp.Models.Tariff>
+
+@{
+    ViewData["Title"] = "Тарифы";
+}
+
+<h2>Тарифы</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Скорость, Мбит/с</th>
+            <th>Стоимость в месяц, руб.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@t.Name</td>
+                <td>@t.TariffType</td>
+                <td>@t.Speed</td>
+                <td>@t.MonthlyPrice.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
