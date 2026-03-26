@@ -14,13 +14,13 @@ namespace IspApp.Data
 
             var tariffs = new List<Tariff>
             {
-                new Tariff { Name = "Домашний Старт",    Speed = 50,   MonthlyPrice = 390,  TariffType = "Домашний" },
-                new Tariff { Name = "Домашний Базовый",  Speed = 100,  MonthlyPrice = 550,  TariffType = "Домашний" },
-                new Tariff { Name = "Домашний Макс",     Speed = 300,  MonthlyPrice = 750,  TariffType = "Домашний" },
-                new Tariff { Name = "Домашний Ультра",   Speed = 500,  MonthlyPrice = 990,  TariffType = "Домашний" },
-                new Tariff { Name = "Офисный Старт",     Speed = 100,  MonthlyPrice = 1200, TariffType = "Офисный"  },
-                new Tariff { Name = "Офисный Бизнес",    Speed = 300,  MonthlyPrice = 2500, TariffType = "Офисный"  },
-                new Tariff { Name = "Офисный Премиум",   Speed = 1000, MonthlyPrice = 4500, TariffType = "Офисный"  },
+                new Tariff { Name = "Домашний Старт",    Speed = 50,   MonthlyPrice = 19.90m,  TariffType = "Домашний" },
+                new Tariff { Name = "Домашний Базовый",  Speed = 100,  MonthlyPrice = 29.90m,  TariffType = "Домашний" },
+                new Tariff { Name = "Домашний Макс",     Speed = 300,  MonthlyPrice = 39.90m,  TariffType = "Домашний" },
+                new Tariff { Name = "Домашний Ультра",   Speed = 500,  MonthlyPrice = 54.90m,  TariffType = "Домашний" },
+                new Tariff { Name = "Офисный Старт",     Speed = 100,  MonthlyPrice = 69.90m,  TariffType = "Офисный"  },
+                new Tariff { Name = "Офисный Бизнес",    Speed = 300,  MonthlyPrice = 119.90m, TariffType = "Офисный"  },
+                new Tariff { Name = "Офисный Премиум",   Speed = 1000, MonthlyPrice = 219.90m, TariffType = "Офисный"  },
             };
 
             db.Tariffs.AddRange(tariffs);
@@ -29,34 +29,53 @@ namespace IspApp.Data
             // абоненты
             var rand = new Random(42);
 
-            string[] firstNames = { "Александр", "Дмитрий", "Сергей", "Андрей", "Максим",
-                                    "Иван", "Николай", "Алексей", "Виктор", "Павел",
-                                    "Елена", "Ольга", "Наталья", "Татьяна", "Марина" };
-            string[] lastNames = { "Иванов", "Петров", "Сидоров", "Козлов", "Новиков",
-                                    "Морозов", "Волков", "Соколов", "Попов", "Лебедев",
-                                    "Иванова", "Петрова", "Сидорова", "Козлова", "Новикова" };
-            string[] midNames = { "Александрович", "Дмитриевич", "Сергеевич", "Андреевич",
-                                    "Александровна", "Дмитриевна", "Сергеевна" };
+            string[] maleLastNames = { "Иванов", "Петров", "Сидоров", "Козлов", "Новиков",
+                                         "Морозов", "Волков", "Соколов", "Попов", "Лебедев" };
+            string[] maleFirstNames = { "Александр", "Дмитрий", "Сергей", "Андрей", "Максим",
+                                         "Иван", "Николай", "Алексей", "Виктор", "Павел" };
+            string[] maleMidNames = { "Александрович", "Дмитриевич", "Сергеевич",
+                                         "Андреевич", "Николаевич", "Викторович" };
+
+            string[] femaleLastNames = { "Иванова", "Петрова", "Сидорова", "Козлова", "Новикова",
+                                          "Морозова", "Волкова", "Соколова", "Попова", "Лебедева" };
+            string[] femaleFirstNames = { "Елена", "Ольга", "Наталья", "Татьяна", "Марина",
+                                          "Светлана", "Анна", "Екатерина", "Ирина", "Юлия" };
+            string[] femaleMidNames = { "Александровна", "Дмитриевна", "Сергеевна",
+                                          "Андреевна", "Николаевна", "Викторовна" };
+
             string[] streets = { "Ленина", "Мира", "Гагарина", "Советская", "Садовая",
-                                    "Пушкина", "Кирова", "Победы", "Молодёжная", "Центральная" };
+                                  "Пушкина", "Кирова", "Победы", "Молодёжная", "Центральная" };
 
             var subscribers = new List<Subscriber>();
             for (int i = 0; i < 30; i++)
             {
-                string last = lastNames[rand.Next(lastNames.Length)];
-                string first = firstNames[rand.Next(firstNames.Length)];
-                string mid = midNames[rand.Next(midNames.Length)];
-                string street = streets[rand.Next(streets.Length)];
+                bool isMale = rand.Next(2) == 0;
+                string fullName;
+
+                if (isMale)
+                {
+                    string last = maleLastNames[rand.Next(maleLastNames.Length)];
+                    string first = maleFirstNames[rand.Next(maleFirstNames.Length)];
+                    string mid = maleMidNames[rand.Next(maleMidNames.Length)];
+                    fullName = $"{last} {first} {mid}";
+                }
+                else
+                {
+                    string last = femaleLastNames[rand.Next(femaleLastNames.Length)];
+                    string first = femaleFirstNames[rand.Next(femaleFirstNames.Length)];
+                    string mid = femaleMidNames[rand.Next(femaleMidNames.Length)];
+                    fullName = $"{last} {first} {mid}";
+                }
 
                 // у каждого 5-го абонента отрицательный баланс
                 decimal balance = i % 5 == 0
-                    ? -rand.Next(100, 800)
-                    : rand.Next(0, 3000);
+                    ? -(rand.Next(5, 40) + rand.Next(100) / 100m)
+                    : rand.Next(0, 150) + rand.Next(100) / 100m;
 
                 subscribers.Add(new Subscriber
                 {
-                    FullName = $"{last} {first} {mid}",
-                    Address = $"ул. {street}, д. {rand.Next(1, 120)}, кв. {rand.Next(1, 200)}",
+                    FullName = fullName,
+                    Address = $"ул. {streets[rand.Next(streets.Length)]}, д. {rand.Next(1, 120)}, кв. {rand.Next(1, 200)}",
                     Passport = $"{rand.Next(10, 99)} {rand.Next(10, 99)} {rand.Next(100000, 999999)}",
                     AccountNumber = $"ISP-{10000 + i}",
                     Balance = balance,
@@ -112,7 +131,7 @@ namespace IspApp.Data
                     payments.Add(new Payment
                     {
                         PaymentDate = DateTime.Now.AddDays(-rand.Next(1, 90)),
-                        Amount = rand.Next(3, 12) * 100m,
+                        Amount = rand.Next(1, 8) * 10 + rand.Next(100) / 100m,
                         SubscriberId = sub.Id
                     });
                 }
