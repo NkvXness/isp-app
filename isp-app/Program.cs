@@ -1,5 +1,6 @@
 using IspApp.Extensions;
 using IspApp.Models;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -8,7 +9,14 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<IspContext>(options =>
     options.UseSqlServer(connectionString));
 
-builder.Services.AddControllersWithViews();
+// 2 * 11 + 240 = 262 секунды
+builder.Services.AddControllersWithViews(options =>
+{
+    options.CacheProfiles.Add("Default", new CacheProfile
+    {
+        Duration = 262
+    });
+});
 
 var app = builder.Build();
 
