@@ -1,0 +1,49 @@
+﻿<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>@ViewData["Title"] — Приложение интернет-провайдер</title>
+    <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
+    <link rel="stylesheet" href="~/css/site.css" asp-append-version="true" />
+</head>
+<body>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-dark bg-dark mb-3">
+            <div class="container-fluid">
+                <a class="navbar-brand" asp-controller="Home" asp-action="Index">Интернет-провайдер</a>
+                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu">
+                    <span class="navbar-toggler-icon"></span>
+                </button>
+                <div class="collapse navbar-collapse" id="navMenu">
+                    <ul class="navbar-nav me-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Subscribers" asp-action="Index">Абоненты</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Tariffs" asp-action="Index">Тарифы</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Equipment" asp-action="Index">Оборудование</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="Payments" asp-action="Index">Платежи</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-controller="SupportRequests" asp-action="Index">Заявки</a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container">
+        <main role="main">
+            @RenderBody()
+        </main>
+    </div>
+
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>
