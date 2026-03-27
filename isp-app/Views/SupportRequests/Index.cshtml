@@ -1,0 +1,40 @@
+﻿@model IEnumerable<IspApp.Models.SupportRequest>
+
+@{
+    ViewData["Title"] = "Заявки в техподдержку";
+}
+
+<h2>Заявки в техподдержку</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Дата</th>
+            <th>Абонент</th>
+            <th>Проблема</th>
+            <th>Мастер</th>
+            <th>Статус</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var r in Model)
+        {
+            <tr>
+                <td>@r.RequestDate.ToString("dd.MM.yyyy")</td>
+                <td>@r.Subscriber?.FullName</td>
+                <td>@r.Problem</td>
+                <td>@(r.Master ?? "—")</td>
+                <td>
+                    @if (r.Status == "Открыта")
+                    {
+                        <span class="badge bg-warning text-dark">@r.Status</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-success">@r.Status</span>
+                    }
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
