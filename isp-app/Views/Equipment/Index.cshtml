@@ -1,0 +1,40 @@
+﻿@model IEnumerable<IspApp.Models.Equipment>
+
+@{
+    ViewData["Title"] = "Оборудование";
+}
+
+<h2>Оборудование</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Модель</th>
+            <th>Тип</th>
+            <th>Серийный номер</th>
+            <th>Статус</th>
+            <th>Абонент</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var e in Model)
+        {
+            <tr>
+                <td>@e.Model</td>
+                <td>@e.EquipmentType</td>
+                <td>@e.SerialNumber</td>
+                <td>
+                    @if (e.Status == "В аренде")
+                    {
+                        <span class="badge bg-success">@e.Status</span>
+                    }
+                    else
+                    {
+                        <span class="badge bg-secondary">@e.Status</span>
+                    }
+                </td>
+                <td>@e.Subscriber?.FullName</td>
+            </tr>
+        }
+    </tbody>
+</table>
