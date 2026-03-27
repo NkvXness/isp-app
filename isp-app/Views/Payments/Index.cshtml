@@ -1,0 +1,27 @@
+﻿@model IEnumerable<IspApp.Models.Payment>
+
+@{
+    ViewData["Title"] = "Платежи";
+}
+
+<h2>Платежи</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Дата</th>
+            <th>Абонент</th>
+            <th>Сумма, бел. руб.</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var p in Model)
+        {
+            <tr>
+                <td>@p.PaymentDate.ToString("dd.MM.yyyy")</td>
+                <td>@p.Subscriber?.FullName</td>
+                <td>@p.Amount.ToString("N2")</td>
+            </tr>
+        }
+    </tbody>
+</table>
