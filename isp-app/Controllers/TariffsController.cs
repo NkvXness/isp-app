@@ -1,4 +1,5 @@
 ﻿using IspApp.Models;
+using IspApp.Models.ViewModels;
 using Microsoft.AspNetCore.Mvc;
 
 namespace IspApp.Controllers
@@ -21,6 +22,25 @@ namespace IspApp.Controllers
                 .ToList();
 
             return View(tariffs);
+        }
+
+        // сколько абонентов находится на каждом тарифе
+        [ResponseCache(CacheProfileName = "Default")]
+        public IActionResult Statistics()
+        {
+            var stats = _db.Tariffs
+                .Select(t => new TariffStatsViewModel
+                {
+                    TariffName = t.Name,
+                    TariffType = t.TariffType,
+                    Speed = t.Speed,
+                    MonthlyPrice = t.MonthlyPrice,
+                    SubscriberCount = t.Subscribers.Count
+                })
+                .OrderByDescending(t => t.SubscriberCount)
+                .ToList();
+
+            return View(stats);
         }
     }
 }
