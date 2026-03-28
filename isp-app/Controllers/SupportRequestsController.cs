@@ -23,5 +23,18 @@ namespace IspApp.Controllers
 
             return View(requests);
         }
+
+        // только незакрытые заявки ожидающие мастера
+        [ResponseCache(CacheProfileName = "Default")]
+        public IActionResult OpenRequests()
+        {
+            var open = _db.SupportRequests
+                .Include(r => r.Subscriber)
+                .Where(r => r.Status == "Открыта")
+                .OrderBy(r => r.RequestDate)
+                .ToList();
+
+            return View(open);
+        }
     }
 }
