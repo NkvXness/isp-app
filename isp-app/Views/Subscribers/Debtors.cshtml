@@ -1,0 +1,39 @@
+﻿@model IEnumerable<IspApp.Models.Subscriber>
+
+@{
+    ViewData["Title"] = "Должники";
+}
+
+<h2>Абоненты с отрицательным балансом</h2>
+
+@if (!Model.Any())
+{
+    <p class="text-success">Должников нет.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>ФИО</th>
+                <th>Лицевой счёт</th>
+                <th>Адрес</th>
+                <th>Тариф</th>
+                <th>Баланс, бел. руб.</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in Model)
+            {
+                <tr class="table-danger">
+                    <td>@s.FullName</td>
+                    <td>@s.AccountNumber</td>
+                    <td>@s.Address</td>
+                    <td>@s.Tariff?.Name</td>
+                    <td>@s.Balance.ToString("N2")</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p class="text-muted">Всего должников: <strong>@Model.Count()</strong></p>
+}
