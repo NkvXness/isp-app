@@ -24,5 +24,18 @@ namespace IspApp.Controllers
 
             return View(subscribers);
         }
+
+        // список абонентов с отрицательным балансом
+        [ResponseCache(CacheProfileName = "Default")]
+        public IActionResult Debtors()
+        {
+            var debtors = _db.Subscribers
+                .Include(s => s.Tariff)
+                .Where(s => s.Balance < 0)
+                .OrderBy(s => s.Balance)
+                .ToList();
+
+            return View(debtors);
+        }
     }
 }
