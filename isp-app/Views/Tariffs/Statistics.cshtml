@@ -1,0 +1,33 @@
+﻿@model IEnumerable<IspApp.Models.ViewModels.TariffStatsViewModel>
+
+@{
+    ViewData["Title"] = "Статистика тарифов";
+}
+
+<h2>Популярность тарифов</h2>
+
+<table class="table table-bordered table-hover">
+    <thead class="table-dark">
+        <tr>
+            <th>Название</th>
+            <th>Тип</th>
+            <th>Скорость, Мбит/с</th>
+            <th>Стоимость, бел. руб.</th>
+            <th>Абонентов</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var t in Model)
+        {
+            <tr>
+                <td>@t.TariffName</td>
+                <td>@t.TariffType</td>
+                <td>@t.Speed</td>
+                <td>@t.MonthlyPrice.ToString("N2")</td>
+                <td>
+                    <span class="badge bg-primary">@t.SubscriberCount</span>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
