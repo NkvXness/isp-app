@@ -1,0 +1,35 @@
+﻿@model IEnumerable<IspApp.Models.SupportRequest>
+
+@{
+    ViewData["Title"] = "Незакрытые заявки";
+}
+
+<h2>Незакрытые заявки в техподдержку</h2>
+
+@if (!Model.Any())
+{
+    <p class="text-success">Все заявки закрыты.</p>
+}
+else
+{
+    <table class="table table-bordered table-hover">
+        <thead class="table-dark">
+            <tr>
+                <th>Дата</th>
+                <th>Абонент</th>
+                <th>Проблема</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var r in Model)
+            {
+                <tr class="table-warning">
+                    <td>@r.RequestDate.ToString("dd.MM.yyyy")</td>
+                    <td>@r.Subscriber?.FullName</td>
+                    <td>@r.Problem</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+    <p class="text-muted">Ожидают обработки: <strong>@Model.Count()</strong></p>
+}
