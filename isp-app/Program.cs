@@ -9,6 +9,9 @@ var connectionString = builder.Configuration.GetConnectionString("DefaultConnect
 builder.Services.AddDbContext<IspContext>(options =>
     options.UseSqlServer(connectionString));
 
+// регистрируем сервис серверного кэширования ответов
+builder.Services.AddResponseCaching();
+
 // 2 * 11 + 240 = 262 секунды
 builder.Services.AddControllersWithViews(options =>
 {
@@ -30,6 +33,9 @@ app.UseHttpsRedirection();
 app.UseStaticFiles();
 
 app.UseRouting();
+
+app.UseResponseCaching();
+
 app.UseAuthorization();
 
 // инициализируем БД тестовыми данными при первом запуске
