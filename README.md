@@ -1,4 +1,4 @@
-![Build](https://github.com/твой-логин/IspApp/actions/workflows/build.yml/badge.svg)
+[![Build](https://github.com/NkvXness/isp-app/actions/workflows/build.yml/badge.svg)](https://github.com/NkvXness/isp-app/actions/workflows/build.yml)
 
 # Интернет-провайдер — Лабораторная работа №4
 
